@@ -14,7 +14,7 @@ func main() {
 func getClientWithDiscovery() (client.Client, error) {
 	return client.NewClientWithEtcdDiscovery("/services",
 		time.Second*10,
-		"127.0.0.1:2379")
+		"10.4.12.123:2379")
 }
 
 // 如果你的api server没有使用"--discovery"参数启动

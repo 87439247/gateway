@@ -22,7 +22,7 @@ import (
 var (
 	addr           = flag.String("addr", "127.0.0.1:9092", "Addr: client grpc entrypoint")
 	addrHTTP       = flag.String("addr-http", "127.0.0.1:9093", "Addr: client http restful entrypoint")
-	addrStore      = flag.String("addr-store", "etcd://127.0.0.1:2379", "Addr: store address")
+	addrStore      = flag.String("addr-store", "etcd://10.4.12.123:2379", "Addr: store address")
 	namespace      = flag.String("namespace", "dev", "The namespace to isolation the environment.")
 	discovery      = flag.Bool("discovery", false, "Publish apiserver service via discovery.")
 	servicePrefix  = flag.String("service-prefix", "/services", "The prefix for service name.")

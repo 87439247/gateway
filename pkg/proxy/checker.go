@@ -8,6 +8,7 @@ import (
 	"github.com/fagongzi/gateway/pkg/util"
 	"github.com/fagongzi/log"
 	"github.com/valyala/fasthttp"
+	"strings"
 )
 
 func (r *dispatcher) readyToHeathChecker() {
@@ -128,13 +129,15 @@ func (r *dispatcher) doCheck(svr *serverRuntime) bool {
 		return false
 	}
 
+	checkerBody := strings.TrimSpace(string(resp.Body()))
+
 	if svr.meta.HeathCheck.Body != "" &&
-		svr.meta.HeathCheck.Body != string(resp.Body()) {
+		svr.meta.HeathCheck.Body != checkerBody {
 		log.Warnf("server <%s, %s, %d> check failed, body <%s>, expect <%s>",
 			svr.meta.Addr,
 			svr.meta.HeathCheck.Path,
 			svr.checkFailCount+1,
-			resp.Body(),
+			checkerBody,
 			svr.meta.HeathCheck.Body)
 		svr.fail()
 		return false
