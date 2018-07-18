@@ -11,6 +11,7 @@ import (
 const (
 	// UsingCachingValue using cached value to response
 	UsingCachingValue = "__using_cache_value__"
+	UsingJsonpValue = "__using_jsonp_value__"
 )
 
 // NewCachedValue returns a cached value

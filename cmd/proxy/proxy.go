@@ -69,11 +69,12 @@ func init() {
 	defaultFilters.Set(proxy.FilterCaching)
 	defaultFilters.Set(proxy.FilterAnalysis)
 	defaultFilters.Set(proxy.FilterRateLimiting)
-	defaultFilters.Set(proxy.FilterCircuitBreake)
+	//defaultFilters.Set(proxy.FilterCircuitBreake)
 	defaultFilters.Set(proxy.FilterHTTPAccess)
 	defaultFilters.Set(proxy.FilterHeader)
 	defaultFilters.Set(proxy.FilterXForward)
 	defaultFilters.Set(proxy.FilterValidation)
+	defaultFilters.Set(proxy.FilterJsonp)
 }
 
 func main() {

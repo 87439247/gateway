@@ -3,6 +3,7 @@ package proxy
 import (
 	"github.com/buger/jsonparser"
 	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/filter"
 	"github.com/valyala/fasthttp"
 )
 
@@ -124,7 +125,7 @@ func (rd *render) renderMulti(ctx *fasthttp.RequestCtx) {
 	}
 
 	if !hasTemplate {
-		ctx.Write(rd.multiContext)
+		renderJsonp(ctx, rd.multiContext)
 		return
 	}
 
@@ -133,7 +134,7 @@ func (rd *render) renderMulti(ctx *fasthttp.RequestCtx) {
 
 func (rd *render) renderRaw(ctx *fasthttp.RequestCtx, dn *dispathNode) {
 	ctx.Response.Header.SetContentTypeBytes(dn.getResponseContentType())
-	ctx.Write(dn.getResponseBody())
+	renderJsonp(ctx, dn.getResponseBody())
 	dn.release()
 }
 
@@ -161,10 +162,25 @@ func (rd *render) renderDefault(ctx *fasthttp.RequestCtx) {
 	} else {
 		ctx.SetStatusCode(fasthttp.StatusOK)
 	}
-	ctx.Write(rd.api.meta.DefaultValue.Body)
+	renderJsonp(ctx, rd.api.meta.DefaultValue.Body)
+}
+
+func renderJsonp(ctx *fasthttp.RequestCtx, context []byte) {
+	callback := ctx.UserValue(filter.UsingJsonpValue)
+	if nil != callback {
+		ctx.Write(callback.([]byte))
+		ctx.WriteString("(")
+		ctx.Write(context)
+		ctx.WriteString(")")
+		return
+	}
+	ctx.Write(context)
 }
 
 func (rd *render) renderTemplate(ctx *fasthttp.RequestCtx, context []byte) {
+	if log.DebugEnabled() {
+		log.Debugf("content=%s", string(context))
+	}
 	data, err := rd.extract(context)
 	if err != nil {
 		log.Errorf("render: render failed, errors:\n%+v",
@@ -173,7 +189,7 @@ func (rd *render) renderTemplate(ctx *fasthttp.RequestCtx, context []byte) {
 		return
 	}
 
-	ctx.Write(data)
+	renderJsonp(ctx, data)
 }
 
 func (rd *render) extract(src []byte) ([]byte, error) {
