@@ -179,7 +179,7 @@ func renderJsonp(ctx *fasthttp.RequestCtx, context []byte) {
 
 func (rd *render) renderTemplate(ctx *fasthttp.RequestCtx, context []byte) {
 	if log.DebugEnabled() {
-		log.Debugf("content=%s", string(context))
+		log.Debugf("request %s content=%s", string(ctx.RequestURI()), string(context))
 	}
 	data, err := rd.extract(context)
 	if err != nil {

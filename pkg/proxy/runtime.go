@@ -25,7 +25,7 @@ import (
 )
 
 var (
-	dependP = regexp.MustCompile(`\$\w+\.\w+`)
+	dependP = regexp.MustCompile(`\$\w+(?:\.\w+)+`)
 )
 
 type clusterRuntime struct {

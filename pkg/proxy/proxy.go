@@ -284,9 +284,10 @@ func (p *Proxy) ReverseProxyHandler(ctx *fasthttp.RequestCtx) {
 		// wait last batch complete
 		if wg != nil && lastBatch < dn.node.meta.BatchIndex {
 			wg.Wait()
-			wg = nil
+
 			lastBatch = dn.node.meta.BatchIndex
 			if num-idx > 1 {
+				wg = nil
 				wg = &sync.WaitGroup{}
 			}
 		}
@@ -400,8 +401,8 @@ func (p *Proxy) doProxy(dn *dispathNode) {
 		// if not use rewrite, it only change uri path and query string
 		realPath := dn.rewiteURL(&ctx.Request)
 		if "" != realPath {
-			if log.DebugEnabled() {
-				log.Debugf("dispatch: rewrite, from=<%s> to=<%s>",
+			if log.InfoEnabled() {
+				log.Infof("dispatch: rewrite, from=<%s> to=<%s>",
 					hack.SliceToString(ctx.URI().FullURI()),
 					realPath)
 			}
