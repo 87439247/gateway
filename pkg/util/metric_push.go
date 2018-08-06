@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/util/task"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/expfmt"

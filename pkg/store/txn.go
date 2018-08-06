@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/coreos/etcd/clientv3"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"golang.org/x/net/context"
 )
 
@@ -44,7 +44,7 @@ func (t *slowLogTxn) Commit() (*clientv3.TxnResponse, error) {
 
 	cost := time.Now().Sub(start)
 	if cost > DefaultSlowRequestTime {
-		log.Warn("slow: txn runs too slow, resp=<%v> cost=<%s> errors:\n %+v",
+		log.Warnf("slow: txn runs too slow, resp=<%v> cost=<%s> errors:\n %+v",
 			resp,
 			cost,
 			err)

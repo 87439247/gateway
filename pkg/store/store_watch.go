@@ -7,7 +7,7 @@ import (
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/mvcc/mvccpb"
 	"github.com/fagongzi/gateway/pkg/pb/metapb"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/util/format"
 	"github.com/fagongzi/util/protoc"
 )

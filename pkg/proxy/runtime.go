@@ -16,7 +16,7 @@ import (
 	"github.com/fagongzi/gateway/pkg/lb"
 	"github.com/fagongzi/gateway/pkg/pb/metapb"
 	"github.com/fagongzi/goetty"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/util/collection"
 	"github.com/fagongzi/util/hack"
 	pbutil "github.com/fagongzi/util/protoc"

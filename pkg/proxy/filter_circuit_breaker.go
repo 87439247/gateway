@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
-
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/gateway/pkg/filter"
 	"github.com/fagongzi/gateway/pkg/pb/metapb"
 )
@@ -50,8 +50,10 @@ func (f *CircuitBreakeFilter) Pre(c filter.Context) (statusCode int, err error) 
 		return f.BaseFilter.Pre(c)
 	}
 
+	log.Infof("server %s status is %s", c.Server().Addr, c.(*proxyContext).circuitStatus())
 	switch c.(*proxyContext).circuitStatus() {
 	case metapb.Open:
+		log.Infof("server id =%s, rate check period =%s, FailureRateToClose =%s", c.Server().ID, c.Server().CircuitBreaker.RateCheckPeriod, cb.FailureRateToClose)
 		if c.Analysis().GetRecentlyRequestFailureRate(c.Server().ID, time.Duration(c.Server().CircuitBreaker.RateCheckPeriod)) >= int(cb.FailureRateToClose) {
 			c.(*proxyContext).changeCircuitStatusToClose()
 			c.Analysis().Reject(c.Server().ID)

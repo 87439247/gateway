@@ -1,0 +1,17 @@
+FROM centos:7
+# Define default command.
+
+RUN yum install -y golang
+ENV GOROOT=/usr/lib/golang
+ENV GATEWAY_VERSION=`date`
+COPY ./ /gateway/
+RUN rm -rf /gateway/vendor/src/github.com/fagongzi/gateway/pkg && ln -s /gateway/pkg /gateway/vendor/src/github.com/fagongzi/gateway/pkg
+ENV GOPATH=/gateway/vendor:$GOROOT
+RUN go build -o ./proxy -gcflags "-N -l" -a -v /gateway/cmd/proxy/proxy.go
+RUN go build -o ./apiserver -gcflags "-N -l" -a -v /gateway/cmd/api/api_server.go
+
+
+EXPOSE 8001 9091 9092 9093
+
+# entry
+CMD tail -f /etc/hosts

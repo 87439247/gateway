@@ -13,7 +13,7 @@ import (
 
 	"github.com/fagongzi/gateway/pkg/proxy"
 	"github.com/fagongzi/gateway/pkg/util"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 )
 
 type filterFlag []string
@@ -31,8 +31,8 @@ var (
 	defaultFilters = &filterFlag{}
 	filters        = &filterFlag{}
 
-	addr                          = flag.String("addr", "dev.hexun.com:8001", "Addr: http request entrypoint")
-	addrRPC                       = flag.String("addr-rpc", "127.0.0.1:9091", "Addr: manager request entrypoint")
+	addr                          = flag.String("addr", "0.0.0.0:8001", "Addr: http request entrypoint")
+	addrRPC                       = flag.String("addr-rpc", "0.0.0.0:9091", "Addr: manager request entrypoint")
 	addrStore                     = flag.String("addr-store", "etcd://10.4.12.123:2379", "Addr: store of meta data, support etcd")
 	addrPPROF                     = flag.String("addr-pprof", "", "Addr: pprof addr")
 	namespace                     = flag.String("namespace", "dev", "The namespace to isolation the environment.")
@@ -69,7 +69,7 @@ func init() {
 	defaultFilters.Set(proxy.FilterCaching)
 	defaultFilters.Set(proxy.FilterAnalysis)
 	defaultFilters.Set(proxy.FilterRateLimiting)
-	//defaultFilters.Set(proxy.FilterCircuitBreake)
+	defaultFilters.Set(proxy.FilterCircuitBreake)
 	defaultFilters.Set(proxy.FilterHTTPAccess)
 	defaultFilters.Set(proxy.FilterHeader)
 	defaultFilters.Set(proxy.FilterXForward)

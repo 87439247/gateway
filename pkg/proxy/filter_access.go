@@ -2,7 +2,7 @@ package proxy
 
 import (
 	"github.com/fagongzi/gateway/pkg/filter"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 )
 
 // AccessFilter record the http access log

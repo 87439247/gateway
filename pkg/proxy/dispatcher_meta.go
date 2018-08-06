@@ -8,7 +8,7 @@ import (
 	"github.com/fagongzi/gateway/pkg/pb/metapb"
 	"github.com/fagongzi/gateway/pkg/store"
 	"github.com/fagongzi/gateway/pkg/util"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/util/format"
 )
 

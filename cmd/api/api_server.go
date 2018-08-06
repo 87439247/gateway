@@ -15,13 +15,13 @@ import (
 	"github.com/fagongzi/gateway/pkg/store"
 	"github.com/fagongzi/gateway/pkg/util"
 	"github.com/fagongzi/grpcx"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"google.golang.org/grpc"
 )
 
 var (
-	addr           = flag.String("addr", "127.0.0.1:9092", "Addr: client grpc entrypoint")
-	addrHTTP       = flag.String("addr-http", "127.0.0.1:9093", "Addr: client http restful entrypoint")
+	addr           = flag.String("addr", "0.0.0.0:9092", "Addr: client grpc entrypoint")
+	addrHTTP       = flag.String("addr-http", "0.0.0.0:9093", "Addr: client http restful entrypoint")
 	addrStore      = flag.String("addr-store", "etcd://10.4.12.123:2379", "Addr: store address")
 	namespace      = flag.String("namespace", "dev", "The namespace to isolation the environment.")
 	discovery      = flag.Bool("discovery", false, "Publish apiserver service via discovery.")

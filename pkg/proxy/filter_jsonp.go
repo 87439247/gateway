@@ -2,7 +2,7 @@ package proxy
 
 import (
 	"github.com/fagongzi/gateway/pkg/filter"
-	"github.com/labstack/gommon/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"strings"
 )
 

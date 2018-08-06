@@ -2,7 +2,7 @@ package proxy
 
 import (
 	"github.com/buger/jsonparser"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/gateway/pkg/filter"
 	"github.com/valyala/fasthttp"
 )

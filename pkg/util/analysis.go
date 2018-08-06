@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/fagongzi/goetty"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/util/atomic"
 )
 

@@ -5,7 +5,7 @@ import (
 
 	"github.com/fagongzi/gateway/pkg/pb/metapb"
 	"github.com/fagongzi/grpcx"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/labstack/echo"
 )
 

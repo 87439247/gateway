@@ -13,10 +13,11 @@ import (
 	"github.com/fagongzi/gateway/pkg/pb/metapb"
 	"github.com/fagongzi/gateway/pkg/store"
 	"github.com/fagongzi/gateway/pkg/util"
-	"github.com/fagongzi/log"
+	"github.com/fagongzi/gateway/pkg/log"
 	"github.com/fagongzi/util/hack"
 	"github.com/fagongzi/util/task"
 	"github.com/valyala/fasthttp"
+	"strconv"
 )
 
 var (
@@ -263,7 +264,7 @@ func (p *Proxy) ReverseProxyHandler(ctx *fasthttp.RequestCtx) {
 		api.meta.Name,
 		ctx.Method(),
 		ctx.RequestURI())
-
+	beginTime := time.Now().UnixNano()
 	incrRequest(api.meta.Name)
 
 	rd := acquireRender()
@@ -320,6 +321,14 @@ func (p *Proxy) ReverseProxyHandler(ctx *fasthttp.RequestCtx) {
 	if wg != nil {
 		wg.Wait()
 		releaseWG(wg)
+		endTime := time.Now().UnixNano()
+		log.Infof("api(%s): %s %s,start=%s,end=%s take nanos=%s",
+			api.meta.Name,
+			ctx.Method(),
+			ctx.RequestURI(),
+			strconv.FormatInt(beginTime, 10),
+			strconv.FormatInt(endTime, 10),
+			strconv.FormatInt(endTime-beginTime, 10))
 	}
 
 	rd.render(ctx, multiCtx)
